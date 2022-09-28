@@ -14,6 +14,7 @@ FlashTipMan.FlashTip(string)		--客户端弹出string的提醒
 
 --ECGeneralMan： 
 	GetInfoById(id)					-- 根据id获取武将的信息，如等级等
+
 ```
 
 #### 2. 迷之代码:
