@@ -29,7 +29,7 @@ Type t = s.GetType();
 
 ​	`GetClass`由一个`UObject`的实例调用`AMyActor->GetClass()`返回值是`UClass`，当无法获得类的实例但又想获得这个类的`UClass`时便可以调用`AMyActorClass::StaticClass()`
 
-- **`ClassDefaultObject`**，得到`UClass`的类默认对象，具体用法如下：
+- **`ClassDefaultObject`，得到`UClass`的类默认对象，具体用法如下：**
 
 ```C++
 AMyActor->GetClass()->GetDefaultObject<AMyActor>()			// 从对象构造默认对象
@@ -68,6 +68,4 @@ AMyActorClass::StaticClass()->GetDefaultObject<AMyActor>()	// 从类名构造默
 ```
 
 **注意上述两种方法绑定的函数必须带`UFUNCTION`宏修饰**，否则UE无法找到函数。具体原因应该与UE的反射机制有关。只有带`UFUNCTION`修饰的函数才会在编译时被注册进入Module(dll)里，而普通C++函数是不会进行注册的，具体细节不多赘述，详见[UE的反射机制](https://blog.csdn.net/mohuak/article/details/81913532?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase)。
-
-
 
