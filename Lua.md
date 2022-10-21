@@ -1,4 +1,4 @@
-### 1.入门知识
+### 1. 入门知识
 
 - 一些常用库函数
 
@@ -78,3 +78,35 @@ for i = 1, math.huge do
 end
 ```
 
+- 自己写的遍历table的函数
+
+```lua
+local function dump(o)
+	if type(o) == 'table' then
+		local s = '{'
+		for k, v in pairs(o) do
+			if type(k) ~= 'number' then k = '"' .. k .. '"' end
+			s = s .. '[' .. k .. ']' .. '=' .. dump(v) .. ','
+		end
+		return s .. '}'
+	else
+		return tostring(o)
+	end
+end
+```
+
+### 2. 其它
+
+- `require`函数
+
+```lua
+对于路径"package.path = ./?.lua;/usr/local/lua/?.lua;/usr/local/lua/?/init.lua"
+调用require "a.b"会尝试打开以下文件
+./a/b.lua
+/usr/local/lua/a/b.lua
+/usr/local/lua/a/b/init.lua
+
+require只对路径里的分号";"和问号"?"进行操作，将"a.b"替换掉"?"，同时将"a.b"里的"."用文件路径里的"/"替换掉，然后在处理过后的路径里寻找改文件
+
+若require一个文件夹，则相当于require该文件夹下的init.lua文件
+```
