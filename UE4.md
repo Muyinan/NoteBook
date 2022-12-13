@@ -71,7 +71,7 @@ AMyActorClass::StaticClass()->GetDefaultObject<AMyActor>()	// 从类名构造默
 
 #### 4. UE4创建不同类的对象
 
-- 创建`Actor`对象
+- 在世界里生成`Actor`对象
 
 ```C++
 FVector pos(0, 0, 0);  
@@ -109,3 +109,6 @@ StaticMeshComponent->SetStaticMesh(Test_Mesh);
 UTestObject* test = NewObject<UTestObject>();
 ```
 
+#### 5. 在C++中生成蓝图对象
+
+https://zhuanlan.zhihu.com/p/343208300
