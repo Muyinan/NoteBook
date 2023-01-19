@@ -106,7 +106,57 @@ end
 /usr/local/lua/a/b.lua
 /usr/local/lua/a/b/init.lua
 
-require只对路径里的分号";"和问号"?"进行操作，将"a.b"替换掉"?"，同时将"a.b"里的"."用文件路径里的"/"替换掉，然后在处理过后的路径里寻找改文件
+require只对路径里的分号";"和问号"?"进行操作，用"a.b"替换掉"?"，同时用"/"替换掉"a.b"里的"."，然后在处理过后的路径里寻找该文件
 
 若require一个文件夹，则相当于require该文件夹下的init.lua文件
 ```
+
+- 局部递归函数的定义
+
+```lua
+-- 这种书写是错误的，当Lua语言编译函数中的add(n-1)时，局部的add尚未定义。因此这个表达式会尝试调用全局的add函数
+local add = function (n)
+    if n == 0 then return 0
+    else return n + add(n-1)
+    end
+end
+-- 这种书写正确
+local add
+add = function (n)
+    if n == 0 then return 0
+    else return n + add(n-1)
+    end
+end
+-- 或者使用Lua里提供的语法糖也是正确的
+local function foo(params) body end
+-- 上面的语法糖表达式等价于：
+local foo; foo = funciton (params) body end
+```
+
+- **可以把表当成是一个指针**
+
+```lua
+local tableA = {}
+local tableB = tableA
+local a = tableB
+print(tableA)
+print(tableB)
+print(a)
+
+-- 打印结果，地址相同
+table: 0000015D569D7A40
+table: 0000015D569D7A40
+table: 0000015D569D7A40
+```
+
+
+
+### 3. 元表metatable
+
+- **\_\_index:** 用于查询。当访问表中不存在的字段时，解释器会去访问元表的***\_\_index表***或者调用***\_\_index方法***。
+
+  可以用`rawget(t,i)`方法限制只访问表，而不访问元表。
+
+- **\_\_newindex:** 用于更新。同\_\_index一样，不同的是该元方法用于赋值操作。
+
+  可以用`rawget(t, k, v)`限制不访问元表

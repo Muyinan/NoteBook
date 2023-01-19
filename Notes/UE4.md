@@ -38,7 +38,7 @@ AMyActorClass::StaticClass()->GetDefaultObject<AMyActor>()	// 从类名构造默
 
 #### 3. UMG与C++的交互
 
-​		首先创建继承于`UUserWidget`类的C++类，然后在编辑器里创建一个UserWidget的蓝图类，并在该蓝图类的ClassSettings里设置其父类为之前创建的C++类，这样就绑定了C++类与蓝图类，接下来只需要在C++里获取到UMG控件就行了。
+​		首先创建继承自`UUserWidget`的C++类，然后在编辑器里创建一个UserWidget的蓝图类，并在该蓝图类的ClassSettings里设置其父类为之前创建的C++类，这样就绑定了C++类与蓝图类，接下来只需要在C++里获取到UMG控件即可。
 
 - 将C++变量对应的UMG控件绑定
 
@@ -48,7 +48,7 @@ AMyActorClass::StaticClass()->GetDefaultObject<AMyActor>()	// 从类名构造默
 // 获取控件方法二: 反射绑定, 变量名和UMG里的控件名要一致，优势在哪我也不知道。。。
 	UPROPERTY(Meta = (BindWidget))
 		UButton* Button1;
-// 获取控件方法三：强转子集，优势在于不需要知道控件名字，能降低C++与UMG的耦合度
+// 获取控件方法三：强转子集，优点在于不需要知道控件名字，能降低C++与UMG的耦合度
 	UCanvasPanel*  RootPanel = Cast<UCanvasPanel>(GetRootWidget());
 	if (RootPanel)
 	{
@@ -112,3 +112,28 @@ UTestObject* test = NewObject<UTestObject>();
 #### 5. 在C++中生成蓝图对象
 
 https://zhuanlan.zhihu.com/p/343208300
+
+#### 6. C++构造函数与蓝图的构造脚本
+
+蓝图的构造脚本等同于C++里的函数OnConstruction()，在编辑器里被调用，而不是运行时调用。而C++构造函数在编译和运行时都会执行一次。
+
+```
+It is the most interesting point of the Construction Script: it is called in the editor, and not at runtime
+```
+
+https://blog.csdn.net/qq_43760344/article/details/121524724
+
+#### 7. UE4C++阻止编译器优化
+
+如果发现某段代码无法断点调试，或者调试过程中某个函数的局部变量无法显示，可能是该段逻辑被编译器优化掉了。
+
+可以用以下命令取消对该段代码的编译优化。
+
+```C++
+PRAGMA_DISABLE_OPTIMIZATION
+//code
+PRAGMA_ENABLE_OPTIMIZATION
+```
+
+Ref： https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/DevelopmentSetup/VisualStudioSetup/VisualStudioTipsAndTricks/
+
