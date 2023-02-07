@@ -149,7 +149,33 @@ table: 0000015D569D7A40
 table: 0000015D569D7A40
 ```
 
+- **pcall与xpcall的用法**
 
+```lua
+--[[
+    (flag, ret) pcall(func, args...)
+    参数:
+    func:调用函数
+    args:func所需参数，为不定长
+    返回值:
+    flag:调用成功与否，bool值
+    ret:当flag为true时，ret为func的返回值。当flag为false时，ret为errmsg
+]]
+
+--[[
+    (flag, ret) xpcall(func, errfunc, args...)
+    参数:
+    func:调用函数
+    errfunc:错误处理函数
+    args:func所需参数，为不定长
+    返回值:
+    flag:调用成功与否，bool值
+    ret:当flag为true时，ret为func的返回值。当flag为false时，ret为errfunc的返回值
+]]
+
+```
+
+[参考文章](https://blog.csdn.net/bleachpingzi/article/details/118445859?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-118445859-blog-121930545.pc_relevant_3mothn_strategy_recovery&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-118445859-blog-121930545.pc_relevant_3mothn_strategy_recovery&utm_relevant_index=1)
 
 ### 3. 元表metatable
 
