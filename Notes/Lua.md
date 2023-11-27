@@ -1,6 +1,6 @@
 ### 1. 入门知识
 
-- 一些常用库函数
+- **一些常用库函数**
 
 ```lua
 > string.format("%s", "meng")		--> meng
@@ -21,11 +21,11 @@ math.random(l, r)			-- 返回[l,r]内均匀分布的伪随机整数,lr为整数
 math.randomseed(os.time())	-- 设置随机种子
 ```
 
-- Lua将除Boolen值false和nil外的所有值视为真
+- **Lua将除Boolen值false和nil外的所有值视为真**
 
-- and优先级高于or
+- **and优先级高于or**
 
-- not运算符永远返回Boolen类型的值
+- **not运算符永远返回Boolen类型的值**
 
 
 ```lua
@@ -36,7 +36,7 @@ math.randomseed(os.time())	-- 设置随机种子
 > not not nil 	--> false
 ```
 
-- 整数与浮点值相同时Lua显示其相等，支持16进制
+- **整数与浮点值相同时Lua显示其相等，支持16进制**
 
 
 ```lua
@@ -47,7 +47,7 @@ math.randomseed(os.time())	-- 设置随机种子
 > 3 + 0.0			--> 3.0
 ```
 
-- 当想在函数中间直接`return`时，可以加上`do return end`语句，这样就不会报错了
+- **当想在函数中间直接`return`时，可以加上`do return end`语句，这样就不会报错了**
 
 ```lua
 function foo ()
@@ -57,7 +57,7 @@ function foo ()
 end
 ```
 
-- `goto`语句可以代替`continue`、`redo`等语句
+- **`goto`语句可以代替`continue`、`redo`等语句**
 
 ```lua
 while condition do
@@ -70,7 +70,7 @@ while condition do
 end
 ```
 
-- `for`实现无限循环可以用`math.huge`
+- **`for`实现无限循环可以用`math.huge`**
 
 ```lua
 for i = 1, math.huge do
@@ -78,7 +78,7 @@ for i = 1, math.huge do
 end
 ```
 
-- 自己写的遍历table的函数
+- **自己写的遍历table的函数**
 
 ```lua
 local function dump(o)
@@ -95,9 +95,14 @@ local function dump(o)
 end
 ```
 
+- **and or短路原则**
+
+对于and来说,是逻辑"假”的短路规则.即如果第1个操作数是假的，则返第1个操作数,否则返回第2个操作数
+对于or来说，是逻辑"真"的短路规则,即如果第1个操作数是真的，则返回第1个操作数,否则返回第2个操作数
+
 ### 2. 其它
 
-- `require`函数
+- **`require`函数**
 
 ```lua
 对于路径"package.path = ./?.lua;/usr/local/lua/?.lua;/usr/local/lua/?/init.lua"
@@ -111,7 +116,7 @@ require只对路径里的分号";"和问号"?"进行操作，用"a.b"替换掉"?
 若require一个文件夹，则相当于require该文件夹下的init.lua文件
 ```
 
-- 局部递归函数的定义
+- **局部递归函数的定义**
 
 ```lua
 -- 这种书写是错误的，当Lua语言编译函数中的add(n-1)时，局部的add尚未定义。因此这个表达式会尝试调用全局的add函数
@@ -186,3 +191,31 @@ table: 0000015D569D7A40
 - **\_\_newindex:** 用于更新。同\_\_index一样，不同的是该元方法用于赋值操作。
 
   可以用`rawget(t, k, v)`限制不访问元表
+
+### 4. table.sort()
+
+自定义比较函数cmp(a,b)返回值为false时，交换顺序，返回true不交换顺序。
+
+注意：自定义比较函数时，如果cmp(a,b) == true，而且cmp(b,a)==ture时会报错。要么保证两者都为false，要么保证两者值不相等。
+
+### 5. [性能优化](https://blog.51cto.com/u_6871414/5896881)
+
+- table：是一个数组和哈希共用key的数组。当数组长度不够时会rehash，重新申请一个大小为原本数组2倍大小的数组，重新建立hash关系。所以当要创建非常多的小sizetable时，应该预先填充好表的大小，否则会对性能造成非常大的影响。
+
+```lua
+--比如
+point={x=0,y=0}
+--而不是
+point={}, point.x = posx, point.y = posy
+```
+
+```
+1. 在写Lua代码时，你应该尽量使用local变量。比如，使用local变量sin来保存 math.sin
+2. 当需要创建非常多的小size的表时，应预先填充好表的大小，以避免rehash
+3. 在字符串连接中，我们应避免使用..。应用table来模拟buffer，然后concat得到最终字符串。
+4. 在循环中，我们更需要注意实例的创建。我们应该把在循环中不变的东西放到循环外来创建
+5. 在存储数据到table中时，尽量使用数组的数据结构，可以减少内存占用。
+6. 如果无法避免创建新对象，我们需要考虑重用旧对象。
+7. 将性能瓶颈部分用CIC++来写。
+```
+
