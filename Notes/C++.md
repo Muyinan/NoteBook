@@ -24,3 +24,17 @@
    公司底层对union的用法，叹为观止，下面函数将x的比特位进行倒序操作，然后返回倒序后的数值
 
 ![image-20230116163617468](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230116163617468.png)
+
+#### 三、[C++编译](https://blog.csdn.net/u012617944/article/details/78405686)
+
+C++编译时只会编译.cpp和.cpp引用的.h文件，如果有.h文件没有被任何一个.cpp文件引用，那么该.h文件不会被编译，原因如下：
+
+```
+#include的作用是把它后面所写的那个文件的内容，完完整整地、 一字不改地包含到当
+前的文件中来。简单的文本替换，别无其他。
+```
+
+```C++
+extern int a；// 只是声明！没有赋值
+int a;// 默认赋值0！并且缺省为extern的
+```
