@@ -109,19 +109,17 @@ StaticMeshComponent->SetStaticMesh(Test_Mesh);
 UTestObject* test = NewObject<UTestObject>();
 ```
 
-#### 5. 在C++中生成蓝图对象
+#### 5. [在C++中生成蓝图对象](https://zhuanlan.zhihu.com/p/343208300)
 
-https://zhuanlan.zhihu.com/p/343208300
 
-#### 6. C++构造函数与蓝图的构造脚本
+
+#### 6. [C++构造函数与蓝图的构造脚本](https://blog.csdn.net/qq_43760344/article/details/121524724)
 
 蓝图的构造脚本等同于C++里的函数OnConstruction()，在编辑器里被调用，而不是运行时调用。而C++构造函数在编译和运行时都会执行一次。
 
 ```
 It is the most interesting point of the Construction Script: it is called in the editor, and not at runtime
 ```
-
-https://blog.csdn.net/qq_43760344/article/details/121524724
 
 #### 7. UE4C++阻止编译器优化
 

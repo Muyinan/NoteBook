@@ -1,4 +1,4 @@
-![image-20231012173334714](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20231012173334714.png)
+![image-20231012173334714](..\..\Resource\image-20231012173334714.png)
 
 ### 1. 快捷键
 

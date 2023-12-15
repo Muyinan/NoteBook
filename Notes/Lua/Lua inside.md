@@ -2,9 +2,9 @@
 
 - 由array和hashtable两部分组成（但是二者底层都是用链表实现的，并非真正的C数组）。当数组长度或者hash部分数组的长度不够时会rehash，重新申请一个大小为原本数组2倍大小的数组，并重新建立hash关系。所以当要创建非常多的小sizetable时，应该预先填充好表的大小，否则会对性能造成非常大的影响。
 
-  ![image-20231128113156152](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20231128113156152.png)
+  ![image-20231128113156152](..\..\Resource\image-20231128113156152.png)
 
-  ![image-20231128113218546](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20231128113218546.png)
+  ![image-20231128113218546](..\..\Resource\image-20231128113218546.png)
 
 ### 2. [性能优化](https://blog.51cto.com/u_6871414/5896881)
 
@@ -22,6 +22,6 @@ point={}, point.x = posx, point.y = posy
 4. 在循环中，我们更需要注意实例的创建。我们应该把在循环中不变的东西放到循环外来创建
 5. 在存储数据到table中时，尽量使用数组的数据结构，可以减少内存占用。
 6. 如果无法避免创建新对象，我们需要考虑重用旧对象。
-7. 将性能瓶颈部分用CIC++来写。
+7. 将性能瓶颈部分用C/C++来写。
 ```
 

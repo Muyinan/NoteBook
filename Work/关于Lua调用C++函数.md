@@ -29,11 +29,11 @@ ECSHexMapWorldWrapper.UpdateArmyLine(ECSHexMapWorldWrapper, lineid, l_tempArmyLi
 
 代码1中的get函数(以及所有返回值为类的C++函数)的返回值其实并不是一个类，而是统一的wlua里的结构体LuaUObjectUserData的指针，如下：
 
-![image-20230918114918028](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230918114918028.png)
+![image-20230918114918028](..\Resource\image-20230918114918028.png)
 
 该结构体里保存的指针uobj才是真正的C++类指针：
 
-![image-20230918115019980](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20230918115019980.png)
+![image-20230918115019980](..\Resource\image-20230918115019980.png)
 
 **2. 第二个封装**
 
