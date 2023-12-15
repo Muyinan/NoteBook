@@ -38,3 +38,14 @@ C++编译时只会编译.cpp和.cpp引用的.h文件，如果有.h文件没有�
 extern int a；// 只是声明！没有赋值
 int a;// 默认赋值0！并且缺省为extern的
 ```
+
+#### 四、[C++引用和指针](https://www.zhihu.com/question/37608201/answer/1601079930)
+
+- 引用只是c++语法糖，可以看作编译器自动完成取地址、解引用的常量指针。引用区别于指针的特性都是编译器约束完成的，一旦编译成汇编就和指针一样。
+
+- **强弱智能指针的一个重要应用规则：定义对象时，用强智能指针shared_ptr，在其它地方引用对象时，使用弱智能指针weak_ptr。**
+- [enable_shared_from_this<T>()模板类](https://blog.csdn.net/breadheart/article/details/112451022)
+
+#### 五、[右值引用](https://www.cnblogs.com/qicosmos/p/4283455.html)
+
+std::move只是将左值转化成了右值(转换了资源的所有权)，几乎没有性能消耗。当左值转化成了右值之后，便可以匹配到类的移动构造函数，以此来节省性能。
