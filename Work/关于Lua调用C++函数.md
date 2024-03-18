@@ -13,7 +13,7 @@ local ECSHexMapWorldWrapper = ECSHexMapWorldWrapper.get()	-- 1
 ECSHexMapWorldWrapper:UpdateArmyLine(lineid, l_tempArmyLine)	-- 2
 ```
 
-疑问：为什么lua的局部变量能够直接调用UpdateArmyLine函数。按理应该如下使用：
+疑问：为什么lua的局部变量能够直接调用UpdateArmyLine函数。按理来说使用方法应该是：
 
 ```lua
 -- 先查找全局表ECSHexMapWorldWrapper，然后调用全局表的UpdateArmyLine函数

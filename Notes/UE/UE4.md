@@ -135,3 +135,42 @@ PRAGMA_ENABLE_OPTIMIZATION
 
 Ref： https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/DevelopmentSetup/VisualStudioSetup/VisualStudioTipsAndTricks/
 
+#### 8. [软引用、同步/异步加载](https://blog.csdn.net/qq_29523119/article/details/84455486)
+
+```C++
+// 异步加载
+UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath, FStreamableDelegate) 
+// 同步加载
+UAssetManager::GetStreamableManager().RequestSyncLoad()
+LoadObject<>() // 或者使用全局函数
+```
+
+#### 9. 获取该类的所有子类
+
+![image-20240104120935315](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20240104120935315.png)
+
+#### 10. UFUNCTION宏
+
+`BlueprintImplementableEvent`和`BlueprintNativeEvent`使用时一般都是C++中调用蓝图函数。前者无法在C++中实现函数内容。
+
+`BlueprintCallable`是使蓝图中可调用C++函数
+
+#### 11. [Drawcall为什么会影响性能](https://blog.csdn.net/weixin_42358083/article/details/122750617)
+
+- **CPU和GPU并行工作的原理**
+
+​		通过命令缓冲区使得CPU和GPU可以并行工作，命令缓冲区包含了一个命令[队列](https://so.csdn.net/so/search?q=队列&spm=1001.2101.3001.7020)，由CPU向其中添加命令，而由GPU从中读取命名，这其中添加和读取的过程是相互独立的。
+
+- **为什么Draw Call多了会影响帧率**
+
+​		在每次调用Draw Call之前，CPU需要向GPU发送很多内容，包括数据、状态和命令等。在这一阶段，CPU需要完成很多工作，例如检查渲染状态等。而一旦CPU完成了这些准备工作，GPU就可以开始本次的渲染。GPU的渲染能力是非常强的，往往渲染速度快于CPU提交命令的速度。也就是说，如果Draw Call的数量太多，CPU就会把大量时间花费在提交Draw Call上，造成CPU的过载，CPU都把时间花费在准备Draw Call的工作上。
+
+#### 12. [Inside蓝图](https://blog.csdn.net/j756915370/article/details/121556800)
+
+#### 13.  `LoadLevelInstance()`与`LoadStreamLevel()`
+
+- `LoadLevelInstance`在`LevelStreamingDynamic.h`里，会有一个ULevelStreamingDynamic*的返回值，可以获取到加载的Level实例，从而对其进行操作。
+
+- `LoadStreamLevel`在`GameplayStatics.h`里，是一个静态库函数，设计目的是优化游戏性能和内存。
+
+  个人理解，前者可以生成多个level的实例，每个实例都拥有唯一id(由于生成的时候会加上`_Instance_uid`后缀，因此用`GetStreamingLevel`接口获取不到)，可以方便的对每一个level进行管理；而后者重心在于提高性能，适用于加载后就放在那不管的场景。
