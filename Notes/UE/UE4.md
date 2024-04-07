@@ -1,4 +1,4 @@
-#### 1. UE4基本函数
+#### 1. 常用接口
 
 ```C++
 // 创建组件
@@ -11,7 +11,8 @@ FPMesh->SetupAttachment(FPCameraComponent);
 GetWorld()
 // 获取UGameInstance
 GetWorld()->GetGameInstance()
-
+// 获取UEnum的值对应的string
+UEnum::GetValueAsString(GetLocalRole())
 ```
 
 #### 2. 关于`StaticClass`、`GetClass`和`ClassDefaultObject`
@@ -147,7 +148,7 @@ LoadObject<>() // 或者使用全局函数
 
 #### 9. 获取该类的所有子类
 
-![image-20240104120935315](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20240104120935315.png)
+![image-20240104120935315](..\..\Resource\image-20240104120935315.png)
 
 #### 10. UFUNCTION宏
 
@@ -174,3 +175,7 @@ LoadObject<>() // 或者使用全局函数
 - `LoadStreamLevel`在`GameplayStatics.h`里，是一个静态库函数，设计目的是优化游戏性能和内存。
 
   个人理解，前者可以生成多个level的实例，每个实例都拥有唯一id(由于生成的时候会加上`_Instance_uid`后缀，因此用`GetStreamingLevel`接口获取不到)，可以方便的对每一个level进行管理；而后者重心在于提高性能，适用于加载后就放在那不管的场景。
+
+#### 14. rpc函数应该尽量写在需要同步的Actor内部
+
+![image-20240328103109343](..\..\Resource\image-20240328103109343.png)
